@@ -4,8 +4,8 @@
 
 int main()
 {
-	int original = 100;
-	int& original_ref = original;    // reference to original 
+	auto original = 100;
+	auto& original_ref = original;    // reference to original 
 	printf("Original: %d\n", original);
 	printf("Reference: %d\n", original_ref);
 
@@ -13,7 +13,7 @@ int main()
 	 * whatever object the reference was originally referencing
 	 * when it was created. This will not change.
 	 */
-	int new_value = 200;
+	auto new_value = 200;
 	original_ref = new_value;
 	printf("Original: %d\n", original);
 	printf("New Value: %d\n", new_value);
