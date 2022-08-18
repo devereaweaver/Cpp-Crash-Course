@@ -17,19 +17,15 @@ struct SimpleString
 		buffer = new char[max_size];    // point to newly allocated char array
 		buffer[0] = 0;    // set first character to 0 since string is initially empty 
 	}
-
 	~SimpleString()
 	{
 		delete[] buffer;
 	}
-
 	void print(const char* tag) const    // takes constant pointer to char; won't modify object state (const)
 	{
 		printf("%s: %s", tag, buffer);    // print tag and whatever is in the buffer
 						  // notice the buffer will move along until it is reset
 	}
-
-	// review this method to make sure you understand it better
 	bool append_line(const char* x)
 	{
 		/* takes a null-terminated string and adds its contents to buffer */
@@ -42,22 +38,17 @@ struct SimpleString
 		this->buffer[length] = 0;    // add null terminator after newline
 		return true;
 	}
-
-
-
 	private:
 		size_t max_size{};    // max length of string including null terminator
 		char* buffer{};
 		size_t length{};
 };
 
-/* Define a class with a SimpleString member */
 struct SimpleStringOwner
 {
 	SimpleStringOwner(const char* x)
 		: string{10}
 	{
-		// construct a string object
 		if(!string.append_line(x))    
 			throw std::runtime_error{"Not enough memory!"};
 		string.print("\nConstructed");    
