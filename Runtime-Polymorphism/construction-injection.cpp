@@ -1,17 +1,6 @@
-/* defining-interfaces.cpp - demonstration on how to define 
- * and implement interaces in C++
- *
- * Create a full specified Logger interface for the banking 
- * example. 
- */
+/* construction-injection.cpp - example using construction injection
+ * for an interface */
 #include <iostream>
-
-/* To declare an interface, declare a pure virtual class, 
- * to implement an interface, derive from it. 
- * Using a pure virutal class means that the derived class MUST
- * implment all of the interface's methods. This is what makes 
- * creating an interface different from regular inheritance.
- */
 
 struct Logger    // interface, pure virtual class
 {

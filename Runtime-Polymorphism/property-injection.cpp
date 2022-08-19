@@ -1,17 +1,7 @@
-/* defining-interfaces.cpp - demonstration on how to define 
- * and implement interaces in C++
- *
- * Create a full specified Logger interface for the banking 
- * example. 
- */
+/* property-injection.cpp - exmaple of using property injection 
+ * for the interface. */
 #include <iostream>
-
-/* To declare an interface, declare a pure virtual class, 
- * to implement an interface, derive from it. 
- * Using a pure virutal class means that the derived class MUST
- * implment all of the interface's methods. This is what makes 
- * creating an interface different from regular inheritance.
- */
+#include <stdexcept>
 
 struct Logger    // interface, pure virtual class
 {
@@ -37,33 +27,47 @@ struct FileLogger : Logger     // second Logger implementation
 	}
 };
 
-/* Constructor injection - pass a reference to class in the constructor
- * to create the instance of the derived class */
-
-/* This example sets the value of logger member (the derived class)
- * in the constructor using a member initialization list 
- * This is useful since we have to use a reference in the constructor
- * for the derived class, this fixes the choice of logger for the duration
- * of the Bank object. Recall, references can't be reseated, so if this is 
- * desireable, then use this method. 
+/* Property injection - allows you to change the behavior of 
+ * the class by using a pointer which can be reseated instead
+ * of using a reference.
+ * A good practice is to check to make sure that the property 
+ * injected interface is not null before attempting to use it.
  */
+
 struct Bank 
 {
-	Bank(Logger& logger) : logger{logger}{};  // Constructor injection
+	void set_logger(Logger* new_logger)    // use method to set logger manually
+	{
+		logger = new_logger;
+	}
 	void make_transfer(long from, long to, double amount)
 	{
+		if (logger == nullptr)
+			throw std::runtime_error{"Error, accessing null"};
 		// Notionally transfer funds
-		logger.log_transfer(from, to, amount);
+		logger->log_transfer(from, to, amount);    // use arrow, not dot
 	}
 	private:
-		Logger& logger;
+		Logger* logger{};    // field must now be a pointer
 };
 
 int main()
 {
-	ConsoleLogger logger;
-	Bank bank{logger};   // instance of bank with logger type in constructor
-	bank.make_transfer(1000, 2000, 49.95);
-	bank.make_transfer(2000, 4000, 20.00);
+	// create both types of loggers to allow for switching as needed
+	ConsoleLogger console_logger;
+	FileLogger file_logger;
+
+	Bank bank;    // no need for a constructor with property injection
+	bank.set_logger(&console_logger);   // method using reference to logger type
+	try
+	{
+	bank.make_transfer(1000, 2000, 49.95);    // console logging
+	bank.set_logger(&file_logger);
+	bank.make_transfer(2000, 40000, 20.00);    // file logging
+	}
+	catch (const std::runtime_error& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
 }
 
