@@ -7,3 +7,6 @@ simplestring
 copyconstructors
 timerclass
 defining-interfaces
+construction-injection
+property-injection
+defining-interfaces
