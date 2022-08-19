@@ -101,7 +101,7 @@ int main()
 	db.addAccount(44444, 0.81);
 
 	bool flag{true};
-	while(flag)
+	while(flag)    // rudimentary testing, change later after learning about testing frameworks
 	{
 		long id{};
 		std::string c{};

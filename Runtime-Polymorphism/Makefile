@@ -25,4 +25,5 @@ bank: bank.cpp
 clean-bank:
 	rm bank
 
-
+add:
+	git add . && git status
