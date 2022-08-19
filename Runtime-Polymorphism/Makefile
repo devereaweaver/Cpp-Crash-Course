@@ -19,4 +19,10 @@ property-injection: property-injection.cpp
 clean-property-injection:
 	rm property-injection
 
+bank: bank.cpp
+	$(CXX) $(CXXFLAGS) $^ -o $@
+
+clean-bank:
+	rm bank
+
 
