@@ -15,6 +15,7 @@ constexpr const char* as_str(bool x)
 
 int main()
 {
+	/* it basically tests what type we are dealing wtih */
 	std::cout << as_str(std::is_integral<int>::value) << std::endl;
 	std::cout << as_str(std::is_integral<const int>::value) << std::endl;
 	std::cout << as_str(std::is_integral<float>::value) << std::endl;
