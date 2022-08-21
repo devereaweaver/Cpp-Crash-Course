@@ -13,3 +13,6 @@ bank
 .*.swp
 *.swp
 const-cast
+generic-mean
+simple-unique-pointer
+type-traits
