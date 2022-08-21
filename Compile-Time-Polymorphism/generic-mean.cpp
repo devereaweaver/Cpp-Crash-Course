@@ -1,4 +1,19 @@
+/* WARNING - Concepts aren't available for currrent compiler on 
+ * my machine yet, this won't compile for me. Try it on another 
+ * machine with a different compiler to see if it works */
 #include <iostream>
+#include <type_traits>
+
+/* implement a concept that can be used to guard against the misuse of mean */
+template<typename T>
+concept bool Averageable() 
+{
+	return std::is_default_constructible<T>::value && requires (T a, T b)
+		{
+			{a += b} -> T;
+			{a / size_t{1} } -> T;
+		};
+}
 
 /* implement generic version of mean function */
 template<typename T>
