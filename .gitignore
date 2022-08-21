@@ -12,3 +12,4 @@ defining-interfaces
 bank
 .*.swp
 *.swp
+const-cast

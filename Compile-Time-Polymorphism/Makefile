@@ -1,6 +1,6 @@
 CXX = g++ 
 CXXFLAGS = -std=c++20
 
-target: dependencies
+const-cast: const-cast.cpp
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
