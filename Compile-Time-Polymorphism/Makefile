@@ -7,8 +7,11 @@ const-cast: const-cast.cpp
 clean-const-cast:
 	rm const-cast
 
-generic-mean: generic-mean.cpp
+generic-mean-linux: generic-mean.cpp
 	g++ -std=c++2a $^ -o $@ -fconcepts
+
+generic-mean-apple: generic-mean.cpp
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
 clean-generic-mean:
 	rm generic-mean
